@@ -7,191 +7,74 @@
 <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #c9a84c;
-    --gold-dark: #8a6e2f;
-    --bg: #0d0d0e;
-    --bg2: #141416;
-    --bg3: #1c1c20;
-    --text: #f0e6c8;
-    --text-dim: #8a7d62;
-    --green: #4caf7d;
-    --red: #e85c3a;
-    --t1: #3a8fe8;
-    --t1-glow: rgba(58,143,232,0.3);
-    --t2: #e85c3a;
-    --t2-glow: rgba(232,92,58,0.3);
+    --gold: #c9a84c; --gold-dark: #8a6e2f;
+    --bg: #0d0d0e; --bg2: #141416; --bg3: #1c1c20;
+    --text: #f0e6c8; --text-dim: #8a7d62;
+    --green: #4caf7d; --red: #e85c3a;
+    --t1: #3a8fe8; --t1-glow: rgba(58,143,232,0.3);
+    --t2: #e85c3a; --t2-glow: rgba(232,92,58,0.3);
     --shadow-gold: rgba(201,168,76,0.25);
   }
-
   * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Scheherazade New',serif; font-size:20px; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; background-image: radial-gradient(ellipse at 20% 20%,rgba(201,168,76,0.06) 0%,transparent 50%), radial-gradient(ellipse at 80% 80%,rgba(201,168,76,0.04) 0%,transparent 50%); pointer-events:none; z-index:0; }
 
-  body {
-    font-family: 'Scheherazade New', serif;
-    font-size: 20px;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content:'';
-    position:fixed; inset:0;
-    background-image:
-      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 50%);
-    pointer-events:none; z-index:0;
-  }
-
-  /* ── OVERLAY (mode select + popups) ── */
-  .overlay {
-    position: fixed; inset:0;
-    background: rgba(0,0,0,0.82);
-    display: flex; align-items:center; justify-content:center;
-    z-index: 200;
-    backdrop-filter: blur(6px);
-    animation: fadeIn 0.3s ease;
-  }
+  .overlay { position:fixed; inset:0; background:rgba(0,0,0,0.82); display:flex; align-items:center; justify-content:center; z-index:200; backdrop-filter:blur(6px); animation:fadeIn 0.3s ease; }
   .overlay.hidden { display:none; }
   @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
-  .modal {
-    background: var(--bg2);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 24px;
-    padding: 36px 32px;
-    max-width: 420px;
-    width: 90%;
-    text-align: center;
-    animation: popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  }
+  .modal { background:var(--bg2); border:1px solid rgba(201,168,76,0.25); border-radius:24px; padding:36px 32px; max-width:420px; width:90%; text-align:center; animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1); }
   @keyframes popIn { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
-
-  .modal-icon { font-size: 44px; display:block; margin-bottom: 12px; }
-  .modal-title { font-size: 28px; font-weight:700; margin-bottom: 8px; color: var(--text); }
-  .modal-sub { font-size: 17px; color: var(--text-dim); margin-bottom: 28px; line-height: 1.6; }
-
+  .modal-icon { font-size:44px; display:block; margin-bottom:12px; }
+  .modal-title { font-size:26px; font-weight:700; margin-bottom:8px; color:var(--text); }
+  .modal-sub { font-size:16px; color:var(--text-dim); margin-bottom:24px; line-height:1.6; }
   .modal-btns { display:flex; flex-direction:column; gap:10px; }
   .modal-btns.row { flex-direction:row; }
 
-  .mbtn {
-    font-family: 'Scheherazade New', serif;
-    font-size: 20px;
-    padding: 14px 20px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 700;
-  }
-  .mbtn-gold {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: #0d0d0e;
-    box-shadow: 0 4px 18px var(--shadow-gold);
-  }
-  .mbtn-gold:hover { transform:translateY(-2px); box-shadow: 0 6px 24px var(--shadow-gold); }
+  .mbtn { font-family:'Scheherazade New',serif; font-size:19px; padding:13px 20px; border-radius:50px; border:none; cursor:pointer; transition:all 0.2s ease; font-weight:700; }
+  .mbtn-gold { background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#0d0d0e; box-shadow:0 4px 18px var(--shadow-gold); }
+  .mbtn-gold:hover { transform:translateY(-2px); box-shadow:0 6px 24px var(--shadow-gold); }
+  .mbtn-quran { background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.05)); color:var(--gold); border:2px solid rgba(201,168,76,0.35); }
+  .mbtn-quran:hover { background:rgba(201,168,76,0.18); }
+  .mbtn-t1 { background:linear-gradient(135deg,rgba(58,143,232,0.2),rgba(58,143,232,0.1)); color:var(--t1); border:2px solid rgba(58,143,232,0.4); flex:1; }
+  .mbtn-t1:hover { background:rgba(58,143,232,0.25); }
+  .mbtn-t2 { background:linear-gradient(135deg,rgba(232,92,58,0.2),rgba(232,92,58,0.1)); color:var(--t2); border:2px solid rgba(232,92,58,0.4); flex:1; }
+  .mbtn-t2:hover { background:rgba(232,92,58,0.25); }
+  .mbtn-green { background:linear-gradient(135deg,rgba(76,175,125,0.2),rgba(76,175,125,0.1)); color:var(--green); border:2px solid rgba(76,175,125,0.4); flex:1; }
+  .mbtn-green:hover { background:rgba(76,175,125,0.25); }
+  .mbtn-red { background:linear-gradient(135deg,rgba(232,92,58,0.2),rgba(232,92,58,0.1)); color:var(--red); border:2px solid rgba(232,92,58,0.4); flex:1; }
+  .mbtn-red:hover { background:rgba(232,92,58,0.25); }
+  .mbtn-outline { background:transparent; border:1px solid rgba(201,168,76,0.3); color:var(--text-dim); }
+  .mbtn-outline:hover { background:rgba(201,168,76,0.06); color:var(--text); }
 
-  .mbtn-t1 {
-    background: linear-gradient(135deg, rgba(58,143,232,0.2), rgba(58,143,232,0.1));
-    color: var(--t1);
-    border: 2px solid rgba(58,143,232,0.4);
-    flex:1;
-  }
-  .mbtn-t1:hover { background: rgba(58,143,232,0.25); box-shadow: 0 4px 14px var(--t1-glow); }
-
-  .mbtn-t2 {
-    background: linear-gradient(135deg, rgba(232,92,58,0.2), rgba(232,92,58,0.1));
-    color: var(--t2);
-    border: 2px solid rgba(232,92,58,0.4);
-    flex:1;
-  }
-  .mbtn-t2:hover { background: rgba(232,92,58,0.25); box-shadow: 0 4px 14px var(--t2-glow); }
-
-  .mbtn-green {
-    background: linear-gradient(135deg, rgba(76,175,125,0.2), rgba(76,175,125,0.1));
-    color: var(--green);
-    border: 2px solid rgba(76,175,125,0.4);
-    flex:1;
-  }
-  .mbtn-green:hover { background: rgba(76,175,125,0.25); }
-
-  .mbtn-red {
-    background: linear-gradient(135deg, rgba(232,92,58,0.2), rgba(232,92,58,0.1));
-    color: var(--red);
-    border: 2px solid rgba(232,92,58,0.4);
-    flex:1;
-  }
-  .mbtn-red:hover { background: rgba(232,92,58,0.25); }
-
-  .mbtn-outline {
-    background: transparent;
-    border: 1px solid rgba(201,168,76,0.3);
-    color: var(--text-dim);
-  }
-  .mbtn-outline:hover { background: rgba(201,168,76,0.06); color: var(--text); }
-
-  /* Team name inputs inside modal */
   .team-inputs { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
   .team-input-row { display:flex; align-items:center; gap:10px; }
   .team-input-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-  .t1-dot { background:var(--t1); box-shadow:0 0 8px var(--t1-glow); }
-  .t2-dot { background:var(--t2); box-shadow:0 0 8px var(--t2-glow); }
-  .team-name-inp {
-    flex:1;
-    font-family:'Scheherazade New',serif;
-    font-size:19px;
-    background: var(--bg3);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius:10px;
-    color:var(--text);
-    padding:8px 14px;
-    outline:none;
-    text-align:right;
-  }
-  .team-name-inp:focus { border-color: rgba(201,168,76,0.5); }
+  .t1-dot { background:var(--t1); } .t2-dot { background:var(--t2); }
+  .team-name-inp { flex:1; font-family:'Scheherazade New',serif; font-size:19px; background:var(--bg3); border:1px solid rgba(201,168,76,0.2); border-radius:10px; color:var(--text); padding:8px 14px; outline:none; text-align:right; }
+  .team-name-inp:focus { border-color:rgba(201,168,76,0.5); }
 
-  /* ── MAIN PAGE ── */
+  /* MAIN */
   .page { position:relative; z-index:1; max-width:980px; margin:0 auto; padding:36px 20px 80px; }
-
   .header { text-align:center; margin-bottom:28px; animation:fadeDown 0.8s ease both; }
   .header-bismillah { font-size:28px; color:var(--gold); margin-bottom:6px; text-shadow:0 0 20px var(--shadow-gold); }
   .header-title { font-size:38px; font-weight:700; line-height:1.3; margin-bottom:4px; }
   .header-sub { font-size:16px; color:var(--text-dim); }
   .divider { display:flex; align-items:center; gap:12px; margin:12px auto 0; width:fit-content; }
-  .divider-line { width:70px; height:1px; background:linear-gradient(to left, transparent, var(--gold-dark)); }
-  .divider-line.r { background:linear-gradient(to right, transparent, var(--gold-dark)); }
+  .divider-line { width:70px; height:1px; background:linear-gradient(to left,transparent,var(--gold-dark)); }
+  .divider-line.r { background:linear-gradient(to right,transparent,var(--gold-dark)); }
   .divider-diamond { width:8px; height:8px; background:var(--gold); transform:rotate(45deg); }
 
-  /* Mode badge */
-  .mode-badge {
-    display:inline-flex; align-items:center; gap:8px;
-    background:var(--bg3);
-    border:1px solid rgba(201,168,76,0.2);
-    border-radius:50px;
-    padding:6px 18px;
-    font-size:15px;
-    color:var(--text-dim);
-    margin-bottom:20px;
-    cursor:pointer;
-    transition:all 0.2s;
-  }
+  .mode-badge { display:inline-flex; align-items:center; gap:8px; background:var(--bg3); border:1px solid rgba(201,168,76,0.2); border-radius:50px; padding:6px 18px; font-size:15px; color:var(--text-dim); margin-bottom:20px; cursor:pointer; transition:all 0.2s; }
   .mode-badge:hover { border-color:rgba(201,168,76,0.4); color:var(--text); }
   .mode-badge-dot { width:8px; height:8px; border-radius:50%; background:var(--gold); }
 
-  /* SCOREBOARD (competition only) */
-  .scoreboard {
-    display:flex; align-items:stretch;
-    margin-bottom:22px;
-    border-radius:20px; overflow:hidden;
-    border:1px solid rgba(255,255,255,0.06);
-    animation:fadeDown 0.8s 0.1s ease both;
-  }
+  .scoreboard { display:flex; align-items:stretch; margin-bottom:22px; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,0.06); }
   .team-panel { flex:1; padding:18px 14px; display:flex; flex-direction:column; align-items:center; gap:5px; }
   .team1-panel { background:linear-gradient(135deg,rgba(58,143,232,0.15),rgba(58,143,232,0.05)); border-left:1px solid rgba(255,255,255,0.06); }
   .team2-panel { background:linear-gradient(135deg,rgba(232,92,58,0.15),rgba(232,92,58,0.05)); }
   .tp-name { font-size:18px; font-weight:700; }
-  .t1 .tp-name { color:var(--t1); }
-  .t2 .tp-name { color:var(--t2); }
+  .t1 .tp-name { color:var(--t1); } .t2 .tp-name { color:var(--t2); }
   .tp-score { font-size:50px; font-weight:700; line-height:1; }
   .t1 .tp-score { color:var(--t1); text-shadow:0 0 20px var(--t1-glow); }
   .t2 .tp-score { color:var(--t2); text-shadow:0 0 20px var(--t2-glow); }
@@ -200,105 +83,165 @@
   .tp-label { font-size:12px; color:var(--text-dim); }
   .score-vs { display:flex; align-items:center; justify-content:center; padding:14px 10px; background:var(--bg3); font-size:13px; color:var(--text-dim); min-width:44px; }
 
-  /* Individual stats */
-  .ind-stats {
-    display:flex; justify-content:center; gap:20px;
-    margin-bottom:22px;
-    animation:fadeDown 0.8s 0.1s ease both;
-  }
+  .ind-stats { display:flex; justify-content:center; gap:20px; margin-bottom:22px; }
   .ind-pill { background:var(--bg3); border:1px solid rgba(201,168,76,0.18); border-radius:50px; padding:8px 22px; display:flex; flex-direction:column; align-items:center; gap:2px; }
   .ind-pill-label { font-size:12px; color:var(--text-dim); }
   .ind-pill-val { font-size:22px; font-weight:700; }
-  .ind-pill-val.correct { color:var(--green); }
-  .ind-pill-val.wrong   { color:var(--red); }
-  .ind-pill-val.gold    { color:var(--gold); }
+  .ind-pill-val.correct { color:var(--green); } .ind-pill-val.wrong { color:var(--red); } .ind-pill-val.gold { color:var(--gold); }
 
-  /* Progress */
   .progress-wrap { margin-bottom:16px; }
   .progress-text { font-size:14px; color:var(--text-dim); text-align:center; margin-bottom:6px; }
   .progress-bar { height:4px; background:var(--bg3); border-radius:4px; overflow:hidden; }
-  .progress-fill { height:100%; background:linear-gradient(to left, var(--gold), var(--gold-dark)); border-radius:4px; transition:width 0.4s ease; }
+  .progress-fill { height:100%; background:linear-gradient(to left,var(--gold),var(--gold-dark)); border-radius:4px; transition:width 0.4s ease; }
 
-  /* Controls */
   .controls { display:flex; justify-content:center; gap:10px; margin-bottom:24px; flex-wrap:wrap; }
   .btn { font-family:'Scheherazade New',serif; font-size:17px; padding:9px 22px; border-radius:50px; border:none; cursor:pointer; transition:all 0.2s ease; }
   .btn-primary { background:linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#0d0d0e; font-weight:700; box-shadow:0 4px 18px var(--shadow-gold); }
-  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 6px 24px var(--shadow-gold); }
+  .btn-primary:hover { transform:translateY(-2px); }
   .btn-outline { background:transparent; border:1px solid rgba(201,168,76,0.35); color:var(--gold); }
   .btn-outline:hover { background:rgba(201,168,76,0.08); }
 
-  /* Grid */
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:13px; animation:fadeUp 0.8s 0.3s ease both; }
 
-  /* Card */
-  .card {
-    position:relative; background:var(--bg3);
-    border:1px solid rgba(201,168,76,0.15);
-    border-radius:16px; padding:16px 12px;
-    cursor:pointer; transition:all 0.3s ease;
-    display:flex; flex-direction:column; align-items:center;
-    gap:8px; min-height:108px; justify-content:center; overflow:hidden;
-  }
+  .card { position:relative; background:var(--bg3); border:1px solid rgba(201,168,76,0.15); border-radius:16px; padding:16px 12px; cursor:pointer; transition:all 0.3s ease; display:flex; flex-direction:column; align-items:center; gap:8px; min-height:108px; justify-content:center; overflow:hidden; }
   .card::before { content:''; position:absolute; inset:0; border-radius:16px; background:linear-gradient(135deg,rgba(201,168,76,0.05),transparent); opacity:0; transition:opacity 0.3s; }
   .card:hover:not(.revealed) { border-color:rgba(201,168,76,0.45); transform:translateY(-3px); box-shadow:0 8px 28px rgba(0,0,0,0.3); }
   .card:hover::before { opacity:1; }
-
   .card-number { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--gold-dark),var(--gold)); display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:700; color:#0d0d0e; flex-shrink:0; transition:transform 0.3s; }
   .card:hover .card-number { transform:scale(1.1); }
   .card-answer { text-align:center; font-size:20px; color:var(--text); line-height:1.4; transform:scale(0.7); opacity:0; transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1); max-height:0; overflow:hidden; }
   .card-hint { font-size:13px; color:var(--text-dim); transition:opacity 0.2s; }
-
-  .card-badge {
-    position:absolute; top:7px; left:8px;
-    font-size:11px; font-weight:700;
-    padding:2px 8px; border-radius:20px;
-    opacity:0; transition:opacity 0.3s; white-space:nowrap;
-  }
+  .card-badge { position:absolute; top:7px; left:8px; font-size:11px; font-weight:700; padding:2px 8px; border-radius:20px; opacity:0; transition:opacity 0.3s; white-space:nowrap; }
+  .card-read-btn { position:absolute; bottom:7px; left:8px; font-size:15px; cursor:pointer; opacity:0; transition:opacity 0.3s; background:none; border:none; color:var(--gold); padding:2px; line-height:1; }
+  .card.revealed .card-read-btn { opacity:0.55; }
+  .card.revealed .card-read-btn:hover { opacity:1; }
 
   .card.revealed { cursor:default; transform:none !important; }
   .card.revealed .card-answer { opacity:1; transform:scale(1); max-height:100px; }
   .card.revealed .card-hint { opacity:0; max-height:0; overflow:hidden; }
   .card.revealed .card-badge { opacity:1; }
 
-  /* Team colors */
-  .card.rev-t1 { border-color:rgba(58,143,232,0.45); background:linear-gradient(135deg,rgba(58,143,232,0.1),var(--bg3)); box-shadow:0 4px 20px rgba(58,143,232,0.12); }
+  .card.rev-t1 { border-color:rgba(58,143,232,0.45); background:linear-gradient(135deg,rgba(58,143,232,0.1),var(--bg3)); }
   .card.rev-t1 .card-number { background:linear-gradient(135deg,#1a5fa8,var(--t1)); }
   .card.rev-t1 .card-badge { background:rgba(58,143,232,0.2); color:var(--t1); border:1px solid rgba(58,143,232,0.3); }
-
-  .card.rev-t2 { border-color:rgba(232,92,58,0.45); background:linear-gradient(135deg,rgba(232,92,58,0.1),var(--bg3)); box-shadow:0 4px 20px rgba(232,92,58,0.12); }
+  .card.rev-t2 { border-color:rgba(232,92,58,0.45); background:linear-gradient(135deg,rgba(232,92,58,0.1),var(--bg3)); }
   .card.rev-t2 .card-number { background:linear-gradient(135deg,#a83218,var(--t2)); }
   .card.rev-t2 .card-badge { background:rgba(232,92,58,0.2); color:var(--t2); border:1px solid rgba(232,92,58,0.3); }
-
-  /* Individual correct/wrong */
-  .card.rev-correct { border-color:rgba(76,175,125,0.45); background:linear-gradient(135deg,rgba(76,175,125,0.1),var(--bg3)); box-shadow:0 4px 20px rgba(76,175,125,0.1); }
+  .card.rev-correct { border-color:rgba(76,175,125,0.45); background:linear-gradient(135deg,rgba(76,175,125,0.1),var(--bg3)); }
   .card.rev-correct .card-number { background:linear-gradient(135deg,#2d8a5e,var(--green)); }
   .card.rev-correct .card-badge { background:rgba(76,175,125,0.2); color:var(--green); border:1px solid rgba(76,175,125,0.3); }
-
   .card.rev-wrong { border-color:rgba(232,92,58,0.35); background:linear-gradient(135deg,rgba(232,92,58,0.07),var(--bg3)); }
   .card.rev-wrong .card-number { background:linear-gradient(135deg,#a83218,var(--red)); }
   .card.rev-wrong .card-badge { background:rgba(232,92,58,0.15); color:var(--red); border:1px solid rgba(232,92,58,0.3); }
 
-  /* Ripple */
   .ripple { position:absolute; border-radius:50%; transform:scale(0); animation:ripple-anim 0.55s linear; pointer-events:none; }
-  .rpl-gold { background:rgba(201,168,76,0.3); }
-  .rpl-t1   { background:rgba(58,143,232,0.3); }
-  .rpl-t2   { background:rgba(232,92,58,0.3); }
-  .rpl-green{ background:rgba(76,175,125,0.3); }
+  .rpl-gold{background:rgba(201,168,76,0.3);} .rpl-t1{background:rgba(58,143,232,0.3);} .rpl-t2{background:rgba(232,92,58,0.3);}
   @keyframes ripple-anim { to{transform:scale(4);opacity:0} }
 
-  /* Float +1 */
   .float-plus { position:fixed; font-size:32px; font-weight:700; pointer-events:none; z-index:999; animation:floatUp 0.9s ease forwards; }
-  .float-plus.t1 { color:var(--t1); text-shadow:0 0 12px var(--t1-glow); }
-  .float-plus.t2 { color:var(--t2); text-shadow:0 0 12px var(--t2-glow); }
-  .float-plus.correct { color:var(--green); }
+  .float-plus.t1{color:var(--t1);} .float-plus.t2{color:var(--t2);} .float-plus.correct{color:var(--green);}
   @keyframes floatUp { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-75px) scale(1.3)} }
 
-  /* Complete banner */
   .complete-banner { display:none; text-align:center; padding:28px; background:linear-gradient(135deg,rgba(76,175,125,0.12),rgba(201,168,76,0.08)); border:1px solid rgba(76,175,125,0.3); border-radius:20px; margin-bottom:26px; }
   .complete-banner.show { display:block; animation:fadeDown 0.6s ease both; }
   .complete-banner .emoji { font-size:36px; display:block; margin-bottom:8px; }
   .complete-banner h2 { font-size:26px; color:var(--green); margin-bottom:4px; }
   .complete-banner p { font-size:16px; color:var(--text-dim); }
+
+  /* ── QURAN TEXT VIEWER ── */
+  .quran-modal {
+    background:var(--bg2);
+    border:1px solid rgba(201,168,76,0.25);
+    border-radius:24px;
+    width:96%; max-width:660px;
+    max-height:92vh;
+    display:flex; flex-direction:column;
+    overflow:hidden;
+    animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .quran-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    flex-shrink:0;
+  }
+  .quran-close { font-size:22px; background:none; border:none; color:var(--text-dim); cursor:pointer; padding:4px 8px; line-height:1; }
+  .quran-close:hover { color:var(--text); }
+
+  .quran-body {
+    flex:1; overflow-y:auto;
+    padding:24px 28px;
+    background: linear-gradient(180deg, #0f0c06 0%, #0d0b05 100%);
+  }
+
+  /* Bismillah */
+  .quran-bismillah {
+    text-align:center;
+    font-size:28px;
+    color:var(--gold);
+    margin-bottom:20px;
+    text-shadow:0 0 14px var(--shadow-gold);
+    letter-spacing:1px;
+  }
+
+  /* Surah name header */
+  .quran-surah-header {
+    text-align:center;
+    margin-bottom:20px;
+    padding:14px;
+    background:rgba(201,168,76,0.06);
+    border:1px solid rgba(201,168,76,0.15);
+    border-radius:12px;
+  }
+  .quran-surah-header h2 { font-size:24px; color:var(--gold); margin-bottom:4px; }
+  .quran-surah-header p  { font-size:13px; color:var(--text-dim); }
+
+  /* Ayahs container — flowing text like Quran */
+  .quran-ayahs {
+    font-size:26px;
+    line-height:2.4;
+    text-align:justify;
+    color: #f5e8c0;
+    direction:rtl;
+  }
+
+  .quran-ayah-num {
+    display:inline-block;
+    width:28px; height:28px;
+    border-radius:50%;
+    background:rgba(201,168,76,0.15);
+    border:1px solid rgba(201,168,76,0.3);
+    font-size:13px;
+    text-align:center;
+    line-height:26px;
+    color:var(--gold);
+    margin: 0 4px;
+    vertical-align:middle;
+    flex-shrink:0;
+  }
+
+  .quran-loading {
+    text-align:center;
+    padding:50px 20px;
+    color:var(--text-dim);
+    font-size:18px;
+  }
+  .quran-spinner {
+    width:36px; height:36px;
+    border:3px solid rgba(201,168,76,0.2);
+    border-top-color:var(--gold);
+    border-radius:50%;
+    animation:spin 0.8s linear infinite;
+    margin:0 auto 16px;
+  }
+  @keyframes spin { to{transform:rotate(360deg)} }
+
+  .quran-footer {
+    padding:12px 20px;
+    border-top:1px solid rgba(255,255,255,0.06);
+    display:flex; gap:10px;
+    flex-shrink:0;
+  }
 
   @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
   @keyframes fadeUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
@@ -307,18 +250,15 @@
 
   @media (max-width:520px) {
     .grid { grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:10px; }
-    .header-title { font-size:30px; }
-    .tp-score { font-size:38px; }
-    .modal { padding:28px 20px; }
-    .modal-btns.row { flex-direction:column; }
+    .header-title { font-size:30px; } .tp-score { font-size:38px; }
+    .modal { padding:28px 20px; } .modal-btns.row { flex-direction:column; }
+    .quran-ayahs { font-size:22px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     OVERLAY — MODE SELECTION
-══════════════════════════════════════ -->
+<!-- MODE SELECT -->
 <div class="overlay" id="ov-mode">
   <div class="modal">
     <span class="modal-icon">📖</span>
@@ -331,56 +271,66 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     OVERLAY — TEAM NAMES (competition setup)
-══════════════════════════════════════ -->
+<!-- TEAM NAMES -->
 <div class="overlay hidden" id="ov-teams">
   <div class="modal">
     <span class="modal-icon">✏️</span>
     <div class="modal-title">أسماء الفريقين</div>
     <div class="modal-sub">يمكنك تغيير الأسماء أو الإبقاء على الافتراضي</div>
     <div class="team-inputs">
-      <div class="team-input-row">
-        <div class="team-input-dot t1-dot"></div>
-        <input class="team-name-inp" id="inp-t1" value="الفريق الأول" maxlength="18" />
-      </div>
-      <div class="team-input-row">
-        <div class="team-input-dot t2-dot"></div>
-        <input class="team-name-inp" id="inp-t2" value="الفريق الثاني" maxlength="18" />
-      </div>
+      <div class="team-input-row"><div class="team-input-dot t1-dot"></div><input class="team-name-inp" id="inp-t1" value="الفريق الأول" maxlength="18"/></div>
+      <div class="team-input-row"><div class="team-input-dot t2-dot"></div><input class="team-name-inp" id="inp-t2" value="الفريق الثاني" maxlength="18"/></div>
     </div>
-    <div class="modal-btns">
-      <button class="mbtn mbtn-gold" onclick="startCompetition()">ابدأ المسابقة</button>
+    <div class="modal-btns"><button class="mbtn mbtn-gold" onclick="startCompetition()">ابدأ المسابقة</button></div>
+  </div>
+</div>
+
+<!-- CARD ACTION — competition -->
+<div class="overlay hidden" id="ov-action">
+  <div class="modal">
+    <span class="modal-icon">🕌</span>
+    <div class="modal-title" id="ov-action-title">السورة رقم ١</div>
+    <div class="modal-sub">ماذا تريد أن تفعل؟</div>
+    <div class="modal-btns" style="gap:10px;">
+      <button class="mbtn mbtn-gold"  onclick="doAction('reveal')">🔍 كشف اسم السورة</button>
+      <button class="mbtn mbtn-quran" onclick="doAction('read')">📜 قراءة السورة كاملة</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     OVERLAY — ASSIGN POINT (after reveal in competition)
-══════════════════════════════════════ -->
+<!-- CARD ACTION — review -->
+<div class="overlay hidden" id="ov-action-rev">
+  <div class="modal">
+    <span class="modal-icon">🕌</span>
+    <div class="modal-title" id="ov-action-rev-title">السورة رقم ١</div>
+    <div class="modal-sub">ماذا تريد أن تفعل؟</div>
+    <div class="modal-btns" style="gap:10px;">
+      <button class="mbtn mbtn-gold"  onclick="doActionRev('reveal')">🔍 كشف اسم السورة</button>
+      <button class="mbtn mbtn-quran" onclick="doActionRev('read')">📜 قراءة السورة كاملة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ASSIGN POINT -->
 <div class="overlay hidden" id="ov-assign">
   <div class="modal">
     <span class="modal-icon">🎯</span>
     <div class="modal-title">من أجاب صح؟</div>
-    <div class="modal-sub" id="ov-assign-sub">اختر الفريق الذي أجاب بشكل صحيح</div>
-    <div class="modal-btns row" style="gap:10px; margin-bottom:12px;">
+    <div class="modal-sub" id="ov-assign-sub"></div>
+    <div class="modal-btns row" style="gap:10px;margin-bottom:10px;">
       <button class="mbtn mbtn-t1" id="assign-t1-btn" onclick="assignPoint(1)">الفريق الأول</button>
       <button class="mbtn mbtn-t2" id="assign-t2-btn" onclick="assignPoint(2)">الفريق الثاني</button>
     </div>
-    <div class="modal-btns">
-      <button class="mbtn mbtn-outline" onclick="assignPoint(0)">لا أحد</button>
-    </div>
+    <div class="modal-btns"><button class="mbtn mbtn-outline" onclick="assignPoint(0)">لا أحد</button></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     OVERLAY — CORRECT / WRONG (individual review)
-══════════════════════════════════════ -->
+<!-- CORRECT / WRONG -->
 <div class="overlay hidden" id="ov-result">
   <div class="modal">
-    <span class="modal-icon" id="ov-result-icon">🤔</span>
-    <div class="modal-title" id="ov-result-title">هل أجبت صح؟</div>
-    <div class="modal-sub" id="ov-result-sub">السورة رقم <span id="ov-result-num"></span></div>
+    <span class="modal-icon">🤔</span>
+    <div class="modal-title">هل أجبت صح؟</div>
+    <div class="modal-sub" id="ov-result-num"></div>
     <div class="modal-btns row" style="gap:10px;">
       <button class="mbtn mbtn-green" onclick="recordResult(true)">✓ صح</button>
       <button class="mbtn mbtn-red"   onclick="recordResult(false)">✗ خطأ</button>
@@ -388,33 +338,58 @@
   </div>
 </div>
 
+<!-- QURAN TEXT VIEWER -->
+<div class="overlay hidden" id="ov-quran">
+  <div class="quran-modal">
+    <div class="quran-header">
+      <div>
+        <div style="font-size:21px;font-weight:700;color:var(--gold);" id="quran-title">سورة النبأ</div>
+        <div style="font-size:13px;color:var(--text-dim);" id="quran-meta"></div>
+      </div>
+      <button class="quran-close" onclick="closeQuran()">✕</button>
+    </div>
+    <div class="quran-body" id="quran-body">
+      <div class="quran-loading" id="quran-loading">
+        <div class="quran-spinner"></div>
+        جارٍ تحميل السورة...
+      </div>
+      <div id="quran-content" style="display:none;">
+        <div class="quran-surah-header">
+          <h2 id="qc-name"></h2>
+          <p id="qc-meta"></p>
+        </div>
+        <div class="quran-bismillah" id="qc-bismillah">﷽</div>
+        <div class="quran-ayahs" id="qc-ayahs"></div>
+      </div>
+      <div id="quran-error" style="display:none;text-align:center;padding:40px;color:var(--red);font-size:17px;">
+        ⚠️ تعذّر تحميل السورة<br>
+        <span style="font-size:14px;color:var(--text-dim);display:block;margin-top:8px;">تأكد من الاتصال بالإنترنت</span>
+      </div>
+    </div>
+    <div class="quran-footer">
+      <button class="mbtn mbtn-gold" style="flex:1;font-size:17px;padding:11px;" onclick="closeQuranAndContinue()">✓ تم — متابعة</button>
+      <button class="mbtn mbtn-outline" style="font-size:17px;padding:11px 18px;" onclick="closeQuran()">رجوع</button>
+    </div>
+  </div>
+</div>
 
-<!-- ══════════════════════════════════════
-     MAIN PAGE
-══════════════════════════════════════ -->
+<!-- MAIN PAGE -->
 <div class="page" id="main-page" style="display:none">
-
   <div class="header">
     <div class="header-bismillah">﷽</div>
     <h1 class="header-title">مسابقة جزء عمّ</h1>
-    <p class="header-sub">اضغط على رقم السورة لاكتشاف اسمها</p>
-    <div class="divider">
-      <div class="divider-line r"></div>
-      <div class="divider-diamond"></div>
-      <div class="divider-line"></div>
-    </div>
+    <p class="header-sub">اضغط على رقم السورة للبدء</p>
+    <div class="divider"><div class="divider-line r"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
   </div>
 
-  <!-- Mode badge -->
-  <div style="text-align:center; margin-bottom:18px;">
-    <div class="mode-badge" onclick="backToModeSelect()" title="تغيير النوع">
+  <div style="text-align:center;margin-bottom:18px;">
+    <div class="mode-badge" onclick="backToModeSelect()">
       <div class="mode-badge-dot"></div>
       <span id="mode-badge-label">مسابقة</span>
-      <span style="font-size:12px; opacity:0.5">← تغيير</span>
+      <span style="font-size:12px;opacity:0.5">← تغيير</span>
     </div>
   </div>
 
-  <!-- Scoreboard (competition) -->
   <div class="scoreboard" id="scoreboard">
     <div class="team-panel team1-panel t1">
       <div class="tp-name" id="sb-t1-name">الفريق الأول</div>
@@ -429,30 +404,26 @@
     </div>
   </div>
 
-  <!-- Individual stats -->
   <div class="ind-stats" id="ind-stats">
     <div class="ind-pill"><div class="ind-pill-label">صح</div><div class="ind-pill-val correct" id="ind-correct">0</div></div>
     <div class="ind-pill"><div class="ind-pill-label">خطأ</div><div class="ind-pill-val wrong" id="ind-wrong">0</div></div>
     <div class="ind-pill"><div class="ind-pill-label">المتبقية</div><div class="ind-pill-val gold" id="ind-remain">37</div></div>
   </div>
 
-  <!-- Progress -->
   <div class="progress-wrap">
     <div class="progress-text" id="progress-text">0 من 37 سورة</div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
   </div>
 
-  <!-- Controls -->
   <div class="controls">
     <button class="btn btn-primary" onclick="revealAll()">كشف الكل</button>
     <button class="btn btn-outline" onclick="resetAll()">إعادة التهيئة</button>
   </div>
 
-  <!-- Complete -->
   <div class="complete-banner" id="complete-banner">
     <span class="emoji">🌙</span>
-    <h2 id="winner-text">أحسنتم! انتهت المسابقة</h2>
-    <p id="winner-sub">لقد اكتشفتم جميع سور جزء عمّ</p>
+    <h2 id="winner-text">أحسنتم!</h2>
+    <p id="winner-sub"></p>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -460,261 +431,287 @@
 
 <script>
 const surahs = [
-  {num:1,name:"النبأ"},      {num:2,name:"النازعات"},
-  {num:3,name:"عبس"},        {num:4,name:"التكوير"},
-  {num:5,name:"الانفطار"},   {num:6,name:"المطففين"},
-  {num:7,name:"الانشقاق"},   {num:8,name:"البروج"},
-  {num:9,name:"الطارق"},     {num:10,name:"الأعلى"},
-  {num:11,name:"الغاشية"},   {num:12,name:"الفجر"},
-  {num:13,name:"البلد"},     {num:14,name:"الشمس"},
-  {num:15,name:"الليل"},     {num:16,name:"الضحى"},
-  {num:17,name:"الشرح"},     {num:18,name:"التين"},
-  {num:19,name:"العلق"},     {num:20,name:"القدر"},
-  {num:21,name:"البيّنة"},   {num:22,name:"الزلزلة"},
-  {num:23,name:"العاديات"},  {num:24,name:"القارعة"},
-  {num:25,name:"التكاثر"},   {num:26,name:"العصر"},
-  {num:27,name:"الهمزة"},    {num:28,name:"الفيل"},
-  {num:29,name:"قريش"},      {num:30,name:"الماعون"},
-  {num:31,name:"الكوثر"},    {num:32,name:"الكافرون"},
-  {num:33,name:"النصر"},     {num:34,name:"المسد"},
-  {num:35,name:"الإخلاص"},   {num:36,name:"الفلق"},
-  {num:37,name:"الناس"}
+  {num:1,name:"النبأ",qn:78},      {num:2,name:"النازعات",qn:79},
+  {num:3,name:"عبس",qn:80},        {num:4,name:"التكوير",qn:81},
+  {num:5,name:"الانفطار",qn:82},   {num:6,name:"المطففين",qn:83},
+  {num:7,name:"الانشقاق",qn:84},   {num:8,name:"البروج",qn:85},
+  {num:9,name:"الطارق",qn:86},     {num:10,name:"الأعلى",qn:87},
+  {num:11,name:"الغاشية",qn:88},   {num:12,name:"الفجر",qn:89},
+  {num:13,name:"البلد",qn:90},     {num:14,name:"الشمس",qn:91},
+  {num:15,name:"الليل",qn:92},     {num:16,name:"الضحى",qn:93},
+  {num:17,name:"الشرح",qn:94},     {num:18,name:"التين",qn:95},
+  {num:19,name:"العلق",qn:96},     {num:20,name:"القدر",qn:97},
+  {num:21,name:"البيّنة",qn:98},   {num:22,name:"الزلزلة",qn:99},
+  {num:23,name:"العاديات",qn:100}, {num:24,name:"القارعة",qn:101},
+  {num:25,name:"التكاثر",qn:102},  {num:26,name:"العصر",qn:103},
+  {num:27,name:"الهمزة",qn:104},   {num:28,name:"الفيل",qn:105},
+  {num:29,name:"قريش",qn:106},     {num:30,name:"الماعون",qn:107},
+  {num:31,name:"الكوثر",qn:108},   {num:32,name:"الكافرون",qn:109},
+  {num:33,name:"النصر",qn:110},    {num:34,name:"المسد",qn:111},
+  {num:35,name:"الإخلاص",qn:112},  {num:36,name:"الفلق",qn:113},
+  {num:37,name:"الناس",qn:114}
 ];
 
-let mode = null; // 'competition' | 'review'
-let revealedSet = new Set();
-let scores = {1:0, 2:0};
-let indStats = {correct:0, wrong:0};
-let pendingCardIdx = null; // card waiting for assignment/result
+// Surahs that don't start with Bismillah (Al-Tawbah only, but in Juz Amma none)
+// All Juz Amma surahs have Bismillah
 
-function ov(id)      { document.getElementById(id).classList.remove('hidden'); }
-function ovHide(id)  { document.getElementById(id).classList.add('hidden'); }
+let mode=null, revealedSet=new Set(), scores={1:0,2:0}, indStats={correct:0,wrong:0};
+let pendingIdx=null, quranAfterClose=null;
+const quranCache={};
 
-// ── Mode selection ──
-function chooseMode(m) {
-  mode = m;
-  ovHide('ov-mode');
-  if (m === 'competition') {
-    ov('ov-teams');
-  } else {
-    setupPage();
-  }
+function ov(id){document.getElementById(id).classList.remove('hidden');}
+function ovHide(id){document.getElementById(id).classList.add('hidden');}
+
+function chooseMode(m){
+  mode=m; ovHide('ov-mode');
+  if(m==='competition') ov('ov-teams'); else setupPage();
 }
+function startCompetition(){ ovHide('ov-teams'); setupPage(); }
 
-function startCompetition() {
-  ovHide('ov-teams');
-  setupPage();
-}
-
-function setupPage() {
-  const isComp = mode === 'competition';
-  document.getElementById('main-page').style.display = 'block';
-  document.getElementById('mode-badge-label').textContent = isComp ? '🏆 مسابقة' : '📝 مراجعة فردية';
-  document.getElementById('scoreboard').style.display   = isComp ? 'flex'  : 'none';
-  document.getElementById('ind-stats').style.display    = isComp ? 'none'  : 'flex';
-
-  if (isComp) {
-    const n1 = document.getElementById('inp-t1').value || 'الفريق الأول';
-    const n2 = document.getElementById('inp-t2').value || 'الفريق الثاني';
-    document.getElementById('sb-t1-name').textContent = n1;
-    document.getElementById('sb-t2-name').textContent = n2;
-    document.getElementById('assign-t1-btn').textContent = n1;
-    document.getElementById('assign-t2-btn').textContent = n2;
+function setupPage(){
+  const isComp=mode==='competition';
+  document.getElementById('main-page').style.display='block';
+  document.getElementById('mode-badge-label').textContent=isComp?'🏆 مسابقة':'📝 مراجعة فردية';
+  document.getElementById('scoreboard').style.display=isComp?'flex':'none';
+  document.getElementById('ind-stats').style.display=isComp?'none':'flex';
+  if(isComp){
+    const n1=document.getElementById('inp-t1').value||'الفريق الأول';
+    const n2=document.getElementById('inp-t2').value||'الفريق الثاني';
+    document.getElementById('sb-t1-name').textContent=n1;
+    document.getElementById('sb-t2-name').textContent=n2;
+    document.getElementById('assign-t1-btn').textContent=n1;
+    document.getElementById('assign-t2-btn').textContent=n2;
   }
-
   buildGrid();
 }
 
-function backToModeSelect() {
-  // reset everything
-  revealedSet.clear();
-  scores = {1:0,2:0};
-  indStats = {correct:0,wrong:0};
-  pendingCardIdx = null;
-  document.getElementById('main-page').style.display = 'none';
+function backToModeSelect(){
+  revealedSet.clear(); scores={1:0,2:0}; indStats={correct:0,wrong:0}; pendingIdx=null;
+  document.getElementById('main-page').style.display='none';
   document.getElementById('complete-banner').classList.remove('show');
   ov('ov-mode');
 }
 
-// ── Grid ──
-function buildGrid() {
-  const grid = document.getElementById('grid');
-  grid.innerHTML = '';
-  surahs.forEach((s,i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.id = 'card-'+i;
-    card.innerHTML = `
+function buildGrid(){
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  surahs.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.className='card'; card.id='card-'+i;
+    card.innerHTML=`
       <div class="card-badge" id="badge-${i}"></div>
       <div class="card-number">${s.num}</div>
-      <div class="card-hint">اضغط للكشف</div>
+      <div class="card-hint">اضغط للبدء</div>
       <div class="card-answer">سورة ${s.name}</div>
+      <button class="card-read-btn" title="قراءة السورة" onclick="event.stopPropagation();openQuran(${i},null)">📜</button>
     `;
-    card.addEventListener('click', e => onCardClick(i, card, e));
+    card.addEventListener('click',e=>onCardClick(i,card,e));
     grid.appendChild(card);
   });
   updateProgress();
 }
 
-function onCardClick(i, card, e) {
-  if (revealedSet.has(i)) return;
-
-  // First reveal the answer visually
-  doRevealVisual(i, card, e, 'rpl-gold');
-
-  pendingCardIdx = i;
-
-  if (mode === 'competition') {
-    // Ask who answered correctly
-    document.getElementById('ov-assign-sub').textContent = `السورة رقم ${surahs[i].num} — سورة ${surahs[i].name}`;
-    ov('ov-assign');
+function onCardClick(i,card,e){
+  if(revealedSet.has(i)) return;
+  pendingIdx=i;
+  const s=surahs[i];
+  if(mode==='competition'){
+    document.getElementById('ov-action-title').textContent=`السورة رقم ${s.num}`;
+    ov('ov-action');
   } else {
-    // Ask if the individual got it right
-    document.getElementById('ov-result-num').textContent = `${surahs[i].num} — سورة ${surahs[i].name}`;
+    document.getElementById('ov-action-rev-title').textContent=`السورة رقم ${s.num}`;
+    ov('ov-action-rev');
+  }
+}
+
+function doAction(action){
+  ovHide('ov-action');
+  const i=pendingIdx; const card=document.getElementById('card-'+i);
+  if(action==='read'){
+    openQuran(i,()=>{
+      doRevealVisual(i,card,null,'rpl-gold');
+      document.getElementById('ov-assign-sub').textContent=`سورة ${surahs[i].name}`;
+      ov('ov-assign');
+    });
+  } else {
+    doRevealVisual(i,card,null,'rpl-gold');
+    document.getElementById('ov-assign-sub').textContent=`سورة ${surahs[i].name}`;
+    ov('ov-assign');
+  }
+}
+
+function doActionRev(action){
+  ovHide('ov-action-rev');
+  const i=pendingIdx; const card=document.getElementById('card-'+i);
+  if(action==='read'){
+    openQuran(i,()=>{
+      doRevealVisual(i,card,null,'rpl-gold');
+      document.getElementById('ov-result-num').textContent=`سورة ${surahs[i].name}`;
+      ov('ov-result');
+    });
+  } else {
+    doRevealVisual(i,card,null,'rpl-gold');
+    document.getElementById('ov-result-num').textContent=`سورة ${surahs[i].name}`;
     ov('ov-result');
   }
 }
 
-function doRevealVisual(i, card, e, rippleClass) {
-  if (!card) card = document.getElementById('card-'+i);
-  // Ripple
-  const ripple = document.createElement('div');
-  ripple.className = 'ripple ' + rippleClass;
-  const rect = card.getBoundingClientRect();
-  const size = Math.max(rect.width, rect.height);
-  ripple.style.cssText = `width:${size}px;height:${size}px;left:${(e ? e.clientX-rect.left : rect.width/2)-size/2}px;top:${(e ? e.clientY-rect.top : rect.height/2)-size/2}px`;
-  card.appendChild(ripple);
-  setTimeout(() => ripple.remove(), 600);
+// ── Quran Viewer ──
+async function openQuran(idx, afterCloseFn){
+  const s=surahs[idx];
+  quranAfterClose=afterCloseFn||null;
+  document.getElementById('quran-title').textContent=`سورة ${s.name}`;
+  document.getElementById('quran-meta').textContent='';
+  document.getElementById('quran-loading').style.display='block';
+  document.getElementById('quran-content').style.display='none';
+  document.getElementById('quran-error').style.display='none';
+  document.getElementById('quran-body').scrollTop=0;
+  ov('ov-quran');
+
+  // Fetch from cache or API
+  if(quranCache[s.qn]){
+    renderQuran(s, quranCache[s.qn]);
+    return;
+  }
+
+  try {
+    const res=await fetch(`https://api.alquran.cloud/v1/surah/${s.qn}/quran-uthmani`);
+    if(!res.ok) throw new Error('API error');
+    const data=await res.json();
+    quranCache[s.qn]=data.data;
+    renderQuran(s, data.data);
+  } catch(err){
+    document.getElementById('quran-loading').style.display='none';
+    document.getElementById('quran-error').style.display='block';
+  }
+}
+
+function renderQuran(s, data){
+  document.getElementById('quran-loading').style.display='none';
+
+  // Header info
+  document.getElementById('qc-name').textContent=`سورة ${s.name}`;
+  const revelationType=data.revelationType==='Meccan'?'مكية':'مدنية';
+  document.getElementById('qc-meta').textContent=`${revelationType} — ${data.numberOfAyahs} آية`;
+  document.getElementById('quran-meta').textContent=`${revelationType} — ${data.numberOfAyahs} آية`;
+
+  // Bismillah — hide for Al-Fatiha (already has it), Tawbah
+  const showBismillah = data.number !== 1 && data.number !== 9;
+  document.getElementById('qc-bismillah').style.display=showBismillah?'block':'none';
+
+  // Render ayahs as flowing text
+  const container=document.getElementById('qc-ayahs');
+  container.innerHTML='';
+  data.ayahs.forEach(ayah=>{
+    // Skip the Bismillah that comes embedded in first ayah for some surahs
+    let text=ayah.text;
+    container.insertAdjacentHTML('beforeend',
+      `<span>${text} </span><span class="quran-ayah-num">${toArabicNum(ayah.numberInSurah)}</span> `
+    );
+  });
+
+  document.getElementById('quran-content').style.display='block';
+}
+
+function toArabicNum(n){
+  return n.toString().replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+}
+
+function closeQuran(){ ovHide('ov-quran'); quranAfterClose=null; }
+
+function closeQuranAndContinue(){
+  ovHide('ov-quran');
+  const fn=quranAfterClose; quranAfterClose=null;
+  if(fn) fn();
+}
+
+// ── Reveal visual ──
+function doRevealVisual(i,card,e,rippleClass){
+  if(!card) card=document.getElementById('card-'+i);
+  const ripple=document.createElement('div');
+  ripple.className='ripple '+(rippleClass||'rpl-gold');
+  const rect=card.getBoundingClientRect(); const size=Math.max(rect.width,rect.height);
+  ripple.style.cssText=`width:${size}px;height:${size}px;left:${(e?e.clientX-rect.left:rect.width/2)-size/2}px;top:${(e?e.clientY-rect.top:rect.height/2)-size/2}px`;
+  card.appendChild(ripple); setTimeout(()=>ripple.remove(),600);
   card.classList.add('revealed','pop');
 }
 
-// ── Competition: assign point ──
-function assignPoint(team) {
+function assignPoint(team){
   ovHide('ov-assign');
-  const i = pendingCardIdx;
-  pendingCardIdx = null;
-  const card = document.getElementById('card-'+i);
-
-  if (team === 0) {
-    // No one answered correctly — neutral reveal
-    card.classList.add('rev-t1'); // default neutral look reuse gold; just keep revealed
-    document.getElementById('badge-'+i).textContent = '—';
+  const i=pendingIdx; pendingIdx=null; const card=document.getElementById('card-'+i);
+  if(team===0){
+    document.getElementById('badge-'+i).textContent='—';
   } else {
     card.classList.add('rev-t'+team);
-    const name = document.getElementById('sb-t'+team+'-name').textContent;
-    document.getElementById('badge-'+i).textContent = name;
-    scores[team]++;
-    bumpScore(team);
-    spawnFloat(card, '+1', 't'+team);
+    document.getElementById('badge-'+i).textContent=document.getElementById('sb-t'+team+'-name').textContent;
+    scores[team]++; bumpScore(team); spawnFloat(card,'+1','t'+team);
   }
-
-  revealedSet.add(i);
-  updateProgress();
+  revealedSet.add(i); updateProgress();
 }
 
-function bumpScore(team) {
-  const el = document.getElementById('sb-t'+team+'-score');
-  el.textContent = scores[team];
-  el.classList.remove('bump');
-  void el.offsetWidth;
-  el.classList.add('bump');
+function bumpScore(team){
+  const el=document.getElementById('sb-t'+team+'-score');
+  el.textContent=scores[team]; el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump');
 }
 
-// ── Individual: record result ──
-function recordResult(correct) {
+function recordResult(correct){
   ovHide('ov-result');
-  const i = pendingCardIdx;
-  pendingCardIdx = null;
-  const card = document.getElementById('card-'+i);
-
-  if (correct) {
-    card.classList.add('rev-correct');
-    document.getElementById('badge-'+i).textContent = '✓ صح';
-    indStats.correct++;
-    document.getElementById('ind-correct').textContent = indStats.correct;
-    spawnFloat(card, '✓', 'correct');
+  const i=pendingIdx; pendingIdx=null; const card=document.getElementById('card-'+i);
+  if(correct){
+    card.classList.add('rev-correct'); document.getElementById('badge-'+i).textContent='✓ صح';
+    indStats.correct++; document.getElementById('ind-correct').textContent=indStats.correct;
+    spawnFloat(card,'✓','correct');
   } else {
-    card.classList.add('rev-wrong');
-    document.getElementById('badge-'+i).textContent = '✗ خطأ';
-    indStats.wrong++;
-    document.getElementById('ind-wrong').textContent = indStats.wrong;
+    card.classList.add('rev-wrong'); document.getElementById('badge-'+i).textContent='✗ خطأ';
+    indStats.wrong++; document.getElementById('ind-wrong').textContent=indStats.wrong;
   }
-
-  revealedSet.add(i);
-  updateProgress();
+  revealedSet.add(i); updateProgress();
 }
 
-// ── Float label ──
-function spawnFloat(card, text, cls) {
-  const rect = card.getBoundingClientRect();
-  const el = document.createElement('div');
-  el.className = 'float-plus ' + cls;
-  el.textContent = text;
-  el.style.left = (rect.left + rect.width/2 - 20) + 'px';
-  el.style.top  = (rect.top  + rect.height/2 - 20) + 'px';
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 950);
+function spawnFloat(card,text,cls){
+  const rect=card.getBoundingClientRect();
+  const el=document.createElement('div'); el.className='float-plus '+cls; el.textContent=text;
+  el.style.left=(rect.left+rect.width/2-20)+'px'; el.style.top=(rect.top+rect.height/2-20)+'px';
+  document.body.appendChild(el); setTimeout(()=>el.remove(),950);
 }
 
-// ── Progress ──
-function updateProgress() {
-  const count = revealedSet.size;
-  const total = surahs.length;
-  document.getElementById('progress-text').textContent = `${count} من ${total} سورة`;
-  document.getElementById('progress-fill').style.width = ((count/total)*100) + '%';
-  document.getElementById('ind-remain').textContent = total - count;
-
-  if (count === total) showComplete();
+function updateProgress(){
+  const count=revealedSet.size, total=surahs.length;
+  document.getElementById('progress-text').textContent=`${count} من ${total} سورة`;
+  document.getElementById('progress-fill').style.width=((count/total)*100)+'%';
+  document.getElementById('ind-remain').textContent=total-count;
+  if(count===total) showComplete();
 }
 
-function showComplete() {
-  setTimeout(() => {
-    let wt, ws;
-    if (mode === 'competition') {
-      const s1=scores[1], s2=scores[2];
+function showComplete(){
+  setTimeout(()=>{
+    let wt,ws;
+    if(mode==='competition'){
+      const s1=scores[1],s2=scores[2];
       const n1=document.getElementById('sb-t1-name').textContent;
       const n2=document.getElementById('sb-t2-name').textContent;
-      if (s1>s2)      { wt=`🏆 ${n1} فاز بالمسابقة!`; ws=`${s1} مقابل ${s2} نقطة`; }
-      else if (s2>s1) { wt=`🏆 ${n2} فاز بالمسابقة!`; ws=`${s2} مقابل ${s1} نقطة`; }
-      else            { wt='🤝 تعادل! أحسنتم جميعاً'; ws=`${s1} نقطة لكل فريق`; }
-    } else {
-      const c=indStats.correct, w=indStats.wrong;
-      wt = `🌟 أتممت المراجعة!`;
-      ws = `${c} صح — ${w} خطأ`;
-    }
-    document.getElementById('winner-text').textContent = wt;
-    document.getElementById('winner-sub').textContent  = ws;
-    const b = document.getElementById('complete-banner');
-    b.classList.add('show');
+      if(s1>s2){wt=`🏆 ${n1} فاز!`;ws=`${s1} مقابل ${s2} نقطة`;}
+      else if(s2>s1){wt=`🏆 ${n2} فاز!`;ws=`${s2} مقابل ${s1} نقطة`;}
+      else{wt='🤝 تعادل!';ws=`${s1} نقطة لكل فريق`;}
+    } else { wt='🌟 أتممت المراجعة!'; ws=`${indStats.correct} صح — ${indStats.wrong} خطأ`; }
+    document.getElementById('winner-text').textContent=wt;
+    document.getElementById('winner-sub').textContent=ws;
+    const b=document.getElementById('complete-banner'); b.classList.add('show');
     b.scrollIntoView({behavior:'smooth',block:'center'});
-  }, 500);
+  },500);
 }
 
-// ── Reveal All ──
-function revealAll() {
-  // In competition/review: skip popup, just reveal all as neutral
-  surahs.forEach((_,i) => {
-    if (!revealedSet.has(i)) {
-      setTimeout(() => {
-        const card = document.getElementById('card-'+i);
-        doRevealVisual(i, card, null, 'rpl-gold');
-        revealedSet.add(i);
-        updateProgress();
-      }, i*35);
+function revealAll(){
+  surahs.forEach((_,i)=>{
+    if(!revealedSet.has(i)){
+      setTimeout(()=>{ const card=document.getElementById('card-'+i); doRevealVisual(i,card,null,'rpl-gold'); revealedSet.add(i); updateProgress(); },i*35);
     }
   });
 }
 
-// ── Reset ──
-function resetAll() {
-  revealedSet.clear();
-  scores = {1:0, 2:0};
-  indStats = {correct:0, wrong:0};
-  pendingCardIdx = null;
-  document.getElementById('sb-t1-score').textContent = '0';
-  document.getElementById('sb-t2-score').textContent = '0';
-  document.getElementById('ind-correct').textContent = '0';
-  document.getElementById('ind-wrong').textContent   = '0';
+function resetAll(){
+  revealedSet.clear(); scores={1:0,2:0}; indStats={correct:0,wrong:0}; pendingIdx=null;
+  ['sb-t1-score','sb-t2-score'].forEach(id=>document.getElementById(id).textContent='0');
+  ['ind-correct','ind-wrong'].forEach(id=>document.getElementById(id).textContent='0');
   document.getElementById('complete-banner').classList.remove('show');
   buildGrid();
 }
